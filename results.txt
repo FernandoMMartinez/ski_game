@@ -1,0 +1,86 @@
+Trial 1
+
+Training patterns:  1000 , Test Run:  367
+Training patterns:  2000 , Test Run:  302
+Training patterns:  3000 , Test Run:  456
+Training patterns:  4000 , Test Run:  881
+Training patterns:  5000 , Test Run:  367
+Training patterns:  6000 , Test Run:  172
+Training patterns:  7000 , Test Run:  11038
+Training patterns:  8000 , Test Run:  124
+Training patterns:  9000 , Test Run:  2501
+Training patterns:  10000 , Test Run:  47
+Training patterns:  11000 , Test Run:  1022
+Training patterns:  12000 , Test Run:  497
+Training patterns:  13000 , Test Run:  585
+Training patterns:  14000 , Test Run:  64
+Training patterns:  15000 , Test Run:  39800
+Training patterns:  16000 , Test Run:  257
+Training patterns:  17000 , Test Run:  1097
+Training patterns:  18000 , Test Run:  1793
+Training patterns:  19000 , Test Run:  10170
+Training patterns:  20000 , Test Run:  3038
+
+
+
+Trial 2
+
+Training patterns:  1001 , Test Run:  366
+Training patterns:  2001 , Test Run:  301
+Training patterns:  3001 , Test Run:  455
+Training patterns:  4001 , Test Run:  880
+Training patterns:  5001 , Test Run:  366
+Training patterns:  6001 , Test Run:  171
+Training patterns:  7001 , Test Run:  11037
+Training patterns:  8001 , Test Run:  123
+Training patterns:  9001 , Test Run:  851
+Training patterns:  10001 , Test Run:  2587
+Training patterns:  11001 , Test Run:  14575
+Training patterns:  12001 , Test Run:  1301
+Training patterns:  13001 , Test Run:  93
+Training patterns:  14001 , Test Run:  633
+Training patterns:  15001 , Test Run:  263
+Training patterns:  16001 , Test Run:  12356
+Training patterns:  17001 , Test Run:  1374
+Training patterns:  18001 , Test Run:  303
+Training patterns:  19001 , Test Run:  1910
+Training patterns:  20001 , Test Run:  3886
+
+
+Trial 3
+
+Training patterns:  1001 , Test Run:  366
+Training patterns:  2001 , Test Run:  301
+Training patterns:  3001 , Test Run:  455
+Training patterns:  4001 , Test Run:  880
+Training patterns:  5001 , Test Run:  366
+Training patterns:  6001 , Test Run:  171
+Training patterns:  7001 , Test Run:  11037
+Training patterns:  8001 , Test Run:  123
+Training patterns:  9001 , Test Run:  851
+Training patterns:  10001 , Test Run:  2587
+Training patterns:  11001 , Test Run:  14575
+Training patterns:  12001 , Test Run:  1301
+Training patterns:  13001 , Test Run:  93
+Training patterns:  14001 , Test Run:  633
+Training patterns:  15001 , Test Run:  263
+Training patterns:  16001 , Test Run:  12356
+Training patterns:  17001 , Test Run:  1374
+Training patterns:  18001 , Test Run:  303
+Training patterns:  19001 , Test Run:  1910
+Training patterns:  20001 , Test Run:  3886
+
+
+Trial 4
+
+Training patterns:  50000 , Test Run:  2798
+Training patterns:  60000 , Test Run:  190
+Training patterns:  70000 , Test Run:  636
+Training patterns:  80000 , Test Run:  82
+Training patterns:  90000 , Test Run:  19
+Training patterns:  100000 , Test Run:  70
+Training patterns:  110000 , Test Run:  105
+Training patterns:  120000 , Test Run:  17
+Training patterns:  130000 , Test Run:  27
+Training patterns:  140000 , Test Run:  259
+

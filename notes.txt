@@ -1,0 +1,12 @@
+model_params.py has its own random seed setting?
+test run worsens with very large number of training patterns
+
+
+
+mailing list status update
+
+-goals
+-current status
+-timeline
+
+

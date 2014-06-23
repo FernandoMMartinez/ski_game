@@ -1,0 +1,32 @@
+import os.path
+
+#set the checkpoint save file name
+CWD = os.path.dirname(os.path.realpath(__file__))
+EXT = '.model'
+
+-----
+
+#see if we have a saved model to load
+savefile = os.path.join(CWD, user+EXT)
+if os.path.exist(savefile):
+   print "Loading game history for " + user
+   model = ModelFactory.loadFromCheckpoint(savefile)
+   model.enableInference({'predictionSteps':[1],'predictedField':'choice', 'numRecords':1000})
+   
+   #pick a random choice to start the game
+   ....
+
+else:
+   print "Creating new model for " + user
+   model = ModelFactory.create(description.config)
+   model.enableInference()
+
+   #train initial values
+
+-----
+
+#save a checkpoint of the model
+model.save(savefile)
+
+
+
