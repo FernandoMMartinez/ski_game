@@ -1,6 +1,6 @@
-model_params.py has its own random seed setting?
-test run worsens with very large number of training patterns
-
+-model_params.py has its own random seed setting?
+-test run worsens with very large number of training patterns
+-sometimes the ski layout randomly goes left or right in steps of 2 continuously which means it is impossible to win in that scenario even if you move left or right constantly.
 
 
 mailing list status update
@@ -8,5 +8,8 @@ mailing list status update
 -goals
 -current status
 -timeline
+
+
+mid-term reports
 
 

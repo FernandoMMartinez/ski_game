@@ -44,7 +44,7 @@ variablewidth = False
 #random.seed("NuPIC")
 
 # number of records to train on
-_NUM_RECORDS = 100 #15000
+_NUM_RECORDS = 15000
 
 
 #-----------------------------------------------------------------------------

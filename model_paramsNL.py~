@@ -163,7 +163,7 @@ MODEL_PARAMS = {
             # NOTE: If None, use spNumActivePerInhArea
             #
             # TODO: need better explanation
-            'newSynapseCount': 20, #20
+            'newSynapseCount': 100, #20
 
             # Maximum number of synapses per segment
             #  > 0 for fixed-size CLA
@@ -172,7 +172,7 @@ MODEL_PARAMS = {
             # TODO: for Ron: once the appropriate value is placed in TP
             # constructor, see if we should eliminate this parameter from
             # description.py.
-            'maxSynapsesPerSegment': 32, #32
+            'maxSynapsesPerSegment': 257, #32
 
             # Maximum number of segments per cell
             #  > 0 for fixed-size CLA
