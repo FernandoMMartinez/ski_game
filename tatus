@@ -1,0 +1,596 @@
+[33mcommit 0b12818c1f35e66e4d6ddca858ac8a75bc8e1423[m
+Author: FernandoMMartinez <fernando.martinez@mavs.uta.edu>
+Date:   Tue Jun 24 15:38:33 2014 -0500
+
+    6/24/14 update
+
+[1mdiff --git a/model_paramsNL.py b/model_paramsNL.py[m
+[1mindex a8c5249..c39cde4 100644[m
+[1m--- a/model_paramsNL.py[m
+[1m+++ b/model_paramsNL.py[m
+[36m@@ -107,7 +107,7 @@[m [mMODEL_PARAMS = {[m
+             # there are more, the weaker ones are suppressed)[m
+             'numActivePerInhArea': 40, #40[m
+ [m
+[31m-            'seed': 19, #1956[m
+[32m+[m[32m            'seed': 1956, #1956[m
+ [m
+             # coincInputPoolPct[m
+             # What percent of the columns's receptive field is available[m
+[36m@@ -149,7 +149,7 @@[m [mMODEL_PARAMS = {[m
+             'columnCount': 2048, #2048[m
+ [m
+             # The number of cells (i.e., states), allocated per column.[m
+[31m-            'cellsPerColumn': 128, #32[m
+[32m+[m[32m            'cellsPerColumn': 32, #32[m
+ [m
+             'inputWidth': 2048,[m
+ [m
+[36m@@ -163,7 +163,7 @@[m [mMODEL_PARAMS = {[m
+             # NOTE: If None, use spNumActivePerInhArea[m
+             #[m
+             # TODO: need better explanation[m
+[31m-            'newSynapseCount': 100, #20[m
+[32m+[m[32m            'newSynapseCount': 20, #20[m
+ [m
+             # Maximum number of synapses per segment[m
+             #  > 0 for fixed-size CLA[m
+[36m@@ -172,7 +172,7 @@[m [mMODEL_PARAMS = {[m
+             # TODO: for Ron: once the appropriate value is placed in TP[m
+             # constructor, see if we should eliminate this parameter from[m
+             # description.py.[m
+[31m-            'maxSynapsesPerSegment': 257, #32[m
+[32m+[m[32m            'maxSynapsesPerSegment': 32, #32[m
+ [m
+             # Maximum number of segments per cell[m
+             #  > 0 for fixed-size CLA[m
+[1mdiff --git a/model_paramsNL.pyc b/model_paramsNL.pyc[m
+[1mindex 7308582..3a67107 100644[m
+Binary files a/model_paramsNL.pyc and b/model_paramsNL.pyc differ
+[1mdiff --git a/model_paramsNL.py~ b/model_paramsNL.py~[m
+[1mnew file mode 100644[m
+[1mindex 0000000..c0e9551[m
+[1m--- /dev/null[m
+[1m+++ b/model_paramsNL.py~[m
+[36m@@ -0,0 +1,242 @@[m
+[32m+[m[32m# ----------------------------------------------------------------------[m
+[32m+[m[32m# Numenta Platform for Intelligent Computing (NuPIC)[m
+[32m+[m[32m# Copyright (C) 2013, Numenta, Inc.  Unless you have purchased from[m
+[32m+[m[32m# Numenta, Inc. a separate commercial license for this software code, the[m
+[32m+[m[32m# following terms and conditions apply:[m
+[32m+[m[32m#[m
+[32m+[m[32m# This program is free software: you can redistribute it and/or modify[m
+[32m+[m[32m# it under the terms of the GNU General Public License version 3 as[m
+[32m+[m[32m# published by the Free Software Foundation.[m
+[32m+[m[32m#[m
+[32m+[m[32m# This program is distributed in the hope that it will be useful,[m
+[32m+[m[32m# but WITHOUT ANY WARRANTY; without even the implied warranty of[m
+[32m+[m[32m# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.[m
+[32m+[m[32m# See the GNU General Public License for more details.[m
+[32m+[m[32m#[m
+[32m+[m[32m# You should have received a copy of the GNU General Public License[m
+[32m+[m[32m# along with this program.  If not, see http://www.gnu.org/licenses.[m
+[32m+[m[32m#[m
+[32m+[m[32m# http://numenta.org/licenses/[m
+[32m+[m[32m# ----------------------------------------------------------------------[m
+[32m+[m
+[32m+[m[32mMODEL_PARAMS = {[m
+[32m+[m[32m    # Type of model that the rest of these parameters apply to.[m
+[32m+[m[32m    'model': "CLA",[m
+[32m+[m
+[32m+[m[32m    # Version that specifies the format of the config.[m
+[32m+[m[32m    'version': 1,[m
+[32m+[m
+[32m+[m[32m    'predictAheadTime': None,[m
+[32m+[m
+[32m+[m[32m    # Model parameter dictionary.[m
+[32m+[m[32m    'modelParams': {[m
+[32m+[m[32m        # The type of inference that this model will perform[m
+[32m+[m[32m        'inferenceType': 'TemporalMultiStep',[m
+[32m+[m
+[32m+[m[32m        'sensorParams': {[m
+[32m+[m[32m            # Sensor diagnostic output verbosity control;[m
+[32m+[m[32m            # if > 0: sensor region will print out on screen what it's sensing[m
+[32m+[m[32m            # at each step 0: silent; >=1: some info; >=2: more info;[m
+[32m+[m[32m            # >=3: even more info (see compute() in py/regions/RecordSensor.py)[m
+[32m+[m[32m            'verbosity' : 0,[m
+[32m+[m
+[32m+[m[32m            # Ski slope encoder[m
+[32m+[m[32m            'encoders': {[m[41m   [m
+[32m+[m[32m              'treeleft': {[m
+[32m+[m[32m                'fieldname': u'treeleft',[m
+[32m+[m[32m                'n': 200,[m
+[32m+[m[32m                'name': u'treeleft',[m
+[32m+[m[32m                'type': 'ScalarEncoder',[m
+[32m+[m[32m                'minval': 0,[m
+[32m+[m[32m                'maxval': 80,[m
+[32m+[m[32m                'w': 21[m
+[32m+[m[32m              },[m
+[32m+[m[32m              'pos': {[m
+[32m+[m[32m                'clipInput': True,[m
+[32m+[m[32m                'fieldname': u'pos',[m
+[32m+[m[32m                'n': 200,[m
+[32m+[m[32m                'name': u'pos',[m
+[32m+[m[32m                'type': 'ScalarEncoder',[m
+[32m+[m[32m                'minval': 0,[m
+[32m+[m[32m                'maxval': 80,[m
+[32m+[m[32m                'w': 21[m
+[32m+[m[32m              },[m
+[32m+[m[32m              'treeright': {[m
+[32m+[m[32m                'fieldname': u'treeright',[m
+[32m+[m[32m                'n': 200,[m
+[32m+[m[32m                'name': u'treeright',[m
+[32m+[m[32m                'type': 'ScalarEncoder',[m
+[32m+[m[32m                'minval': 0,[m
+[32m+[m[32m                'maxval': 80,[m
+[32m+[m[32m                'w': 21[m
+[32m+[m[32m              }[m
+[32m+[m[32m            },[m
+[32m+[m
+[32m+[m[32m            # A dictionary specifying the period for automatically-generated[m
+[32m+[m[32m            # resets from a RecordSensor;[m
+[32m+[m[32m            #[m
+[32m+[m[32m            # None = disable automatically-generated resets (also disabled if[m
+[32m+[m[32m            # all of the specified values evaluate to 0).[m
+[32m+[m[32m            # Valid keys is the desired combination of the following:[m
+[32m+[m[32m            #   days, hours, minutes, seconds, milliseconds, microseconds, weeks[m
+[32m+[m[32m            #[m
+[32m+[m[32m            # Example for 1.5 days: sensorAutoReset = dict(days=1,hours=12),[m
+[32m+[m[32m            #[m
+[32m+[m[32m            # (value generated from SENSOR_AUTO_RESET)[m
+[32m+[m[32m            'sensorAutoReset' : None,[m
+[32m+[m[32m        },[m
+[32m+[m
+[32m+[m[32m        'spEnable': True,[m
+[32m+[m
+[32m+[m[32m        'spParams': {[m
+[32m+[m[32m            # SP diagnostic output verbosity control;[m
+[32m+[m[32m            # 0: silent; >=1: some info; >=2: more info;[m
+[32m+[m[32m            'spVerbosity' : 0,[m
+[32m+[m
+[32m+[m[32m            'globalInhibition': 1,[m
+[32m+[m
+[32m+[m[32m            # Number of cell columns in the cortical region (same number for[m
+[32m+[m[32m            # SP and TP)[m
+[32m+[m[32m            # (see also tpNCellsPerCol)[m
+[32m+[m[32m            'columnCount': 2048,[m
+[32m+[m
+[32m+[m[32m            'inputWidth': 0,[m
+[32m+[m
+[32m+[m[32m            # SP inhibition control (absolute value);[m
+[32m+[m[32m            # Maximum number of active columns in the SP region's output (when[m
+[32m+[m[32m            # there are more, the weaker ones are suppressed)[m
+[32m+[m[32m            'numActivePerInhArea': 40, #40[m
+[32m+[m
+[32m+[m[32m            'seed': 1956, #1956[m
+[32m+[m
+[32m+[m[32m            # coincInputPoolPct[m
+[32m+[m[32m            # What percent of the columns's receptive field is available[m
+[32m+[m[32m            # for potential synapses. At initialization time, we will[m
+[32m+[m[32m            # choose coincInputPoolPct * (2*coincInputRadius+1)^2[m
+[32m+[m[32m            'coincInputPoolPct': 0.5, #0.5[m
+[32m+[m
+[32m+[m[32m            # The default connected threshold. Any synapse whose[m
+[32m+[m[32m            # permanence value is above the connected threshold is[m
+[32m+[m[32m            # a "connected synapse", meaning it can contribute to the[m
+[32m+[m[32m            # cell's firing. Typical value is 0.10. Cells whose activity[m
+[32m+[m[32m            # level before inhibition falls below minDutyCycleBeforeInh[m
+[32m+[m[32m            # will have their own internal synPermConnectedCell[m
+[32m+[m[32m            # threshold set below this default value.[m
+[32m+[m[32m            # (This concept applies to both SP and TP and so 'cells'[m
+[32m+[m[32m            # is correct here as opposed to 'columns')[m
+[32m+[m[32m            'synPermConnected': 0.1,[m
+[32m+[m
+[32m+[m[32m            'synPermActiveInc': 0.1,[m
+[32m+[m
+[32m+[m[32m            'synPermInactiveDec': 0.01,[m
+[32m+[m[32m        },[m
+[32m+[m
+[32m+[m[32m        # Controls whether TP is enabled or disabled;[m
+[32m+[m[32m        # TP is necessary for making temporal predictions, such as predicting[m
+[32m+[m[32m        # the next inputs.  Without TP, the model is only capable of[m
+[32m+[m[32m        # reconstructing missing sensor inputs (via SP).[m
+[32m+[m[32m        'tpEnable' : True,[m
+[32m+[m
+[32m+[m[32m        'tpParams': {[m
+[32m+[m[32m            # TP diagnostic output verbosity control;[m
+[32m+[m[32m            # 0: silent; [1..6]: increasing levels of verbosity[m
+[32m+[m[32m            # (see verbosity in nta/trunk/py/nupic/research/TP.py and TP10X*.py)[m
+[32m+[m[32m            'verbosity': 0,[m
+[32m+[m
+[32m+[m[32m            # Number of cell columns in the cortical region (same number for[m
+[32m+[m[32m            # SP and TP)[m
+[32m+[m[32m            # (see also tpNCellsPerCol)[m
+[32m+[m[32m            'columnCount': 2048, #2048[m
+[32m+[m
+[32m+[m[32m            # The number of cells (i.e., states), allocated per column.[m
+[32m+[m[32m            'cellsPerColumn': 32, #32[m
+[32m+[m
+[32m+[m[32m            'inputWidth': 2048,[m
+[32m+[m
+[32m+[m[32m            'seed': 1960,[m
+[32m+[m
+[32m+[m[32m            # Temporal Pooler implementation selector (see _getTPClass in[m
+[32m+[m[32m            # CLARegion.py).[m
+[32m+[m[32m            'temporalImp': 'cpp',[m
+[32m+[m
+[32m+[m[32m            # New Synapse formation count[m
+[32m+[m[32m            # NOTE: If None, use spNumActivePerInhArea[m
+[32m+[m[32m            #[m
+[32m+[m[32m            # TODO: need better explanation[m
+[32m+[m[32m            'newSynapseCount': 100, #20[m
+[32m+[m
+[32m+[m[32m            # Maximum number of synapses per segment[m
+[32m+[m[32m            #  > 0 for fixed-size CLA[m
+[32m+[m[32m            # -1 for non-fixed-size CLA[m
+[32m+[m[32m            #[m
+[32m+[m[32m            # TODO: for Ron: once the appropriate value is placed in TP[m
+[32m+[m[32m            # constructor, see if we should eliminate this parameter from[m
+[32m+[m[32m            # description.py.[m
+[32m+[m[32m            'maxSynapsesPerSegment': 257, #32[m
+[32m+[m
+[32m+[m[32m            # Maximum number of segments per cell[m
+[32m+[m[32m            #  > 0 for fixed-size CLA[m
+[32m+[m[32m            # -1 for non-fixed-size CLA[m
+[32m+[m[32m            #[m
+[32m+[m[32m            # TODO: for Ron: once the appropriate value is placed in TP[m
+[32m+[m[32m            # constructor, see if we should eliminate this parameter from[m
+[32m+[m[32m            # description.py.[m
+[32m+[m[32m            'maxSegmentsPerCell': 128, #128[m
+[32m+[m
+[32m+[m[32m            # Initial Permanence[m
+[32m+[m[32m            # TODO: need better explanation[m
+[32m+[m[32m            'initialPerm': 0.21,[m
+[32m+[m
+[32m+[m[32m            # Permanence Increment[m
+[32m+[m[32m            'permanenceInc': 0.1,[m
+[32m+[m
+[32m+[m[32m            # Permanence Decrement[m
+[32m+[m[32m            # If set to None, will automatically default to tpPermanenceInc[m
+[32m+[m[32m            # value.[m
+[32m+[m[32m            'permanenceDec' : 0.1,[m
+[32m+[m
+[32m+[m[32m            'globalDecay': 0.0,[m
+[32m+[m
+[32m+[m[32m            'maxAge': 0,[m
+[32m+[m
+[32m+[m[32m            # Minimum number of active synapses for a segment to be considered[m
+[32m+[m[32m            # during search for the best-matching segments.[m
+[32m+[m[32m            # None=use default[m
+[32m+[m[32m            # Replaces: tpMinThreshold[m
+[32m+[m[32m            'minThreshold': 12,[m
+[32m+[m
+[32m+[m[32m            # Segment activation threshold.[m
+[32m+[m[32m            # A segment is active if it has >= tpSegmentActivationThreshold[m
+[32m+[m[32m            # connected synapses that are active due to infActiveState[m
+[32m+[m[32m            # None=use default[m
+[32m+[m[32m            # Replaces: tpActivationThreshold[m
+[32m+[m[32m            'activationThreshold': 16,[m
+[32m+[m
+[32m+[m[32m            'outputType': 'normal',[m
+[32m+[m
+[32m+[m[32m            # "Pay Attention Mode" length. This tells the TP how many new[m
+[32m+[m[32m            # elements to append to the end of a learned sequence at a time.[m
+[32m+[m[32m            # Smaller values are better for datasets with short sequences,[m
+[32m+[m[32m            # higher values are better for datasets with long sequences.[m
+[32m+[m[32m            'pamLength': 1,[m
+[32m+[m[32m        },[m
+[32m+[m
+[32m+[m[32m        'clParams': {[m
+[32m+[m[32m            'regionName' : 'CLAClassifierRegion',[m
+[32m+[m
+[32m+[m[32m            # Classifier diagnostic output verbosity control;[m
+[32m+[m[32m            # 0: silent; [1..6]: increasing levels of verbosity[m
+[32m+[m[32m            'clVerbosity' : 0,[m
+[32m+[m
+[32m+[m[32m            # This controls how fast the classifier learns/forgets. Higher values[m
+[32m+[m[32m            # make it adapt faster and forget older patterns faster.[m
+[32m+[m[32m            'alpha': 0.0001, #0.0001[m
+[32m+[m
+[32m+[m[32m            # This is set after the call to updateConfigFromSubConfig and is[m
+[32m+[m[32m            # computed from the aggregationInfo and predictAheadTime.[m
+[32m+[m[32m            'steps': '1',[m
+[32m+[m[32m        },[m
+[32m+[m
+[32m+[m[32m        'trainSPNetOnlyIfRequested': False,[m
+[32m+[m[32m    },[m
+[32m+[m[32m}[m
+[1mdiff --git a/notes.txt b/notes.txt[m
+[1mindex b671ef5..c5a57b9 100644[m
+[1m--- a/notes.txt[m
+[1m+++ b/notes.txt[m
+[36m@@ -1,6 +1,6 @@[m
+[31m-model_params.py has its own random seed setting?[m
+[31m-test run worsens with very large number of training patterns[m
+[31m-[m
+[32m+[m[32m-model_params.py has its own random seed setting?[m
+[32m+[m[32m-test run worsens with very large number of training patterns[m
+[32m+[m[32m-sometimes the ski layout randomly goes left or right in steps of 2 continuously which means it is impossible to win in that scenario even if you move left or right constantly.[m
+ [m
+ [m
+ mailing list status update[m
+[36m@@ -10,3 +10,6 @@[m [mmailing list status update[m
+ -timeline[m
+ [m
+ [m
+[32m+[m[32mmid-term reports[m
+[32m+[m
+[32m+[m
+[1mdiff --git a/notes.txt~ b/notes.txt~[m
+[1mnew file mode 100644[m
+[1mindex 0000000..c4d49ae[m
+[1m--- /dev/null[m
+[1m+++ b/notes.txt~[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32mmodel_params.py has its own random seed setting?[m
+[32m+[m[32mtest run worsens with very large number of training patterns[m
+[32m+[m[32msometimes the ski layout randomly goes left or right in steps of 2 continuously which means it is impossible to win in that scenario even if you move left or right constantly.[m
+[32m+[m
+[32m+[m
+[32m+[m[32mmailing list status update[m
+[32m+[m
+[32m+[m[32m-goals[m
+[32m+[m[32m-current status[m
+[32m+[m[32m-timeline[m
+[32m+[m
+[32m+[m
+[32m+[m[32mmid-term reports[m
+[32m+[m
+[32m+[m
+[1mdiff --git a/skiNL.py b/skiNL.py[m
+[1mindex 657d15b..1ad21ab 100755[m
+[1m--- a/skiNL.py[m
+[1m+++ b/skiNL.py[m
+[36m@@ -44,7 +44,7 @@[m [mvariablewidth = False[m
+ #random.seed("NuPIC")[m
+ [m
+ # number of records to train on[m
+[31m-_NUM_RECORDS = 100[m
+[32m+[m[32m_NUM_RECORDS = 100 #15000[m
+ [m
+ [m
+ #-----------------------------------------------------------------------------[m
+[36m@@ -210,11 +210,11 @@[m [mdef runGame():[m
+ [m
+ [m
+ if __name__ == "__main__":[m
+[31m-  #runGame()[m
+[31m-  #print_stats()[m
+[31m-  for n in xrange(1):[m
+[31m-      _NUM_RECORDS = (n+1)*2000+1000[m
+[31m-      runGame()[m
+[31m-      print_stats()[m
+[32m+[m[32m  runGame()[m
+[32m+[m[32m  print_stats()[m
+[32m+[m[32m  #for n in xrange(1):[m
+[32m+[m[32m      #_NUM_RECORDS = (n+1)*2000+1000[m
+[32m+[m[32m      #runGame()[m
+[32m+[m[32m      #print_stats()[m
+       [m
+ [m
+[1mdiff --git a/skiNL.py~ b/skiNL.py~[m
+[1mnew file mode 100755[m
+[1mindex 0000000..1d4a313[m
+[1m--- /dev/null[m
+[1m+++ b/skiNL.py~[m
+[36m@@ -0,0 +1,220 @@[m
+[32m+[m[32m#!/usr/bin/env python[m
+[32m+[m[32m# ----------------------------------------------------------------------[m
+[32m+[m[32m# Numenta Platform for Intelligent Computing (NuPIC)[m
+[32m+[m[32m# Copyright (C) 2013, Numenta, Inc.  Unless you have purchased from[m
+[32m+[m[32m# Numenta, Inc. a separate commercial license for this software code, the[m
+[32m+[m[32m# following terms and conditions apply:[m
+[32m+[m[32m#[m
+[32m+[m[32m# This program is free software: you can redistribute it and/or modify[m
+[32m+[m[32m# it under the terms of the GNU General Public License version 3 as[m
+[32m+[m[32m# published by the Free Software Foundation.[m
+[32m+[m[32m#[m
+[32m+[m[32m# This program is distributed in the hope that it will be useful,[m
+[32m+[m[32m# but WITHOUT ANY WARRANTY; without even the implied warranty of[m
+[32m+[m[32m# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.[m
+[32m+[m[32m# See the GNU General Public License for more details.[m
+[32m+[m[32m#[m
+[32m+[m[32m# You should have received a copy of the GNU General Public License[m
+[32m+[m[32m# along with this program.  If not, see http://www.gnu.org/licenses.[m
+[32m+[m[32m#[m
+[32m+[m[32m# http://numenta.org/licenses/[m
+[32m+[m[32m# ----------------------------------------------------------------------[m
+[32m+[m
+[32m+[m[32m"""A simple client to create a CLA model for the ski game."""[m
+[32m+[m
+[32m+[m[32mimport sys[m
+[32m+[m[32mimport random[m
+[32m+[m[32mimport logging[m
+[32m+[m
+[32m+[m[32mfrom nupic.frameworks.opf.modelfactory import ModelFactory[m
+[32m+[m[32mfrom nupic.data.inference_shifter import InferenceShifter[m
+[32m+[m
+[32m+[m[32mimport model_paramsNL[m
+[32m+[m
+[32m+[m
+[32m+[m[32myards = 0[m
+[32m+[m[32mslopesize = 80[m
+[32m+[m[32m#slopewidth = 31[m
+[32m+[m[32mslopewidth = 23[m
+[32m+[m[32mslopewidthmin = 27[m
+[32m+[m[32mslopewidthmax = 35[m
+[32m+[m[32mvariablewidth = False[m
+[32m+[m
+[32m+[m[32m# uncomment for repeatable testing data[m
+[32m+[m[32m#random.seed("NuPIC")[m
+[32m+[m
+[32m+[m[32m# number of records to train on[m
+[32m+[m[32m_NUM_RECORDS = 15000[m
+[32m+[m
+[32m+[m
+[32m+[m[32m#-----------------------------------------------------------------------------[m
+[32m+[m[32m# skier functions[m
+[32m+[m[32m#-----------------------------------------------------------------------------[m
+[32m+[m[32mdef generate_random(choicelist):[m
+[32m+[m[32m    random_choice = random.choice(choicelist)[m
+[32m+[m[32m    return random_choice[m
+[32m+[m
+[32m+[m[32mdef calc_skier_position(skierposition,predicted):[m
+[32m+[m[32m    if predicted > skierposition:[m
+[32m+[m[32m        skierposition = skierposition + 1[m
+[32m+[m[32m    if predicted < skierposition:[m
+[32m+[m[32m        skierposition = skierposition - 1[m
+[32m+[m[32m    return skierposition[m
+[32m+[m
+[32m+[m[32mdef print_slopeline(padding,tree,skier,slopewidth,skierposition, printbool):[m
+[32m+[m[32m    """[m
+[32m+[m[32m    This function prints a line of the slope to the screen (stdout).[m
+[32m+[m[32m    The line includes two trees, and a skier.  Occasionally the[m
+[32m+[m[32m    trees are not printed due to a jump.  The width of the slope is[m
+[32m+[m[32m    static for now, and the random number is used to determine how[m
+[32m+[m[32m    far from the left side of the screen the slope begins.[m
+[32m+[m[32m    0--------------t--------S----------t-------------[m
+[32m+[m[32m    """[m
+[32m+[m[32m    global yards[m
+[32m+[m[32m    global slopesize[m
+[32m+[m[32m    leftspace = skierposition - padding[m
+[32m+[m[32m    rightspace = slopewidth - leftspace[m
+[32m+[m[32m    paddingr = padding + slopewidth[m
+[32m+[m[32m    paddingright = slopesize - paddingr[m
+[32m+[m[32m    if printbool:[m
+[32m+[m[32m        print padding*" " + tree + leftspace*" " + skier + rightspace*" " + tree + paddingright*" ", yards[m
+[32m+[m
+[32m+[m[32m    return {'treeleft': padding, 'pos': skierposition, 'treeright': paddingr}[m
+[32m+[m
+[32m+[m[32mdef print_slopeline_perfect(padding,tree,skier,slopewidth, printbool):[m
+[32m+[m[32m    skierposition = padding + slopewidth/2[m
+[32m+[m[32m    return print_slopeline(padding,tree,skier,slopewidth,skierposition, printbool)[m
+[32m+[m
+[32m+[m[32mdef print_slopeline_crash(padding,tree,skier,slopewidth,skierposition):[m
+[32m+[m[32m    """[m
+[32m+[m[32m    This function prints a line of the slope to the screen (stdout)[m
+[32m+[m[32m    that indicates the skier crashed.[m
+[32m+[m[32m    """[m
+[32m+[m[32m    tree = "*"[m
+[32m+[m[32m    return print_slopeline(padding,tree,skier,slopewidth,skierposition)[m
+[32m+[m
+[32m+[m[32mdef print_stats():[m
+[32m+[m[32m    """[m
+[32m+[m[32m    This function prints the final stats after a skier has crashed.[m
+[32m+[m[32m    """[m
+[32m+[m[32m    global yards[m
+[32m+[m[32m    global _NUM_RECORDS[m
+[32m+[m[32m    #print[m
+[32m+[m[32m    #print "You trained on ", _NUM_RECORDS, " training points"[m
+[32m+[m[32m    #print "You skied a total of", yards, "yards!"[m
+[32m+[m[32m    #print[m
+[32m+[m[32m    print "Training patterns: ", _NUM_RECORDS, ", Test Run: ", yards[m
+[32m+[m[32m    return 0[m
+[32m+[m
+[32m+[m
+[32m+[m[32m#-----------------------------------------------------------------------------[m
+[32m+[m[32m# nupic functions[m
+[32m+[m[32m#-----------------------------------------------------------------------------[m
+[32m+[m[32mdef createModel():[m
+[32m+[m[32m  return ModelFactory.create(model_paramsNL.MODEL_PARAMS)[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef runGame():[m
+[32m+[m[32m  global yards[m
+[32m+[m[32m  global slopesize[m
+[32m+[m[32m  global slopewidth[m
+[32m+[m[32m  global slopewidthmin[m
+[32m+[m[32m  global slopewidthmax[m
+[32m+[m[32m  global variablewidth[m
+[32m+[m[32m  tree = "|"[m
+[32m+[m[32m  skier = "H"[m
+[32m+[m[32m  minpadding = 0[m
+[32m+[m[32m  maxpadding = slopesize - slopewidth[m
+[32m+[m[32m  choicelist_drift = [-2,-1,0,1,2][m
+[32m+[m[32m  choicelist_width = [-2,0,2][m
+[32m+[m
+[32m+[m[32m  change = 0[m
+[32m+[m[32m  padding = 14[m
+[32m+[m[32m  skierposition = (padding + (slopewidth/2))[m
+[32m+[m
+[32m+[m[32m  model = createModel()[m
+[32m+[m[32m  model.enableInference({'predictionSteps': [1], 'predictedField': 'pos', 'numRecords': 4000})[m
+[32m+[m[32m  inf_shift = InferenceShifter();[m
+[32m+[m
+[32m+[m[32m  # - Train on a perfect run[m
+[32m+[m[32m  print[m
+[32m+[m[32m  print "================================= Start Training ================================="[m
+[32m+[m[32m  print[m
+[32m+[m[32m  for i in xrange(_NUM_RECORDS):[m
+[32m+[m[32m    yards = yards + 1[m
+[32m+[m[32m    if (variablewidth):[m
+[32m+[m[32m        change = generate_random(choicelist_width)[m
+[32m+[m[32m        slopewidth = slopewidth + change[m
+[32m+[m[32m        if slopewidth > slopewidthmax:[m
+[32m+[m[32m            slopewidth = slopewidthmax[m
+[32m+[m[32m        if slopewidth < slopewidthmin:[m
+[32m+[m[32m            slopewidth = slopewidthmin[m
+[32m+[m
+[32m+[m[32m    drift = generate_random(choicelist_drift)[m
+[32m+[m[32m    padding = padding + drift[m
+[32m+[m[32m    if padding > maxpadding:[m
+[32m+[m[32m        padding = maxpadding[m
+[32m+[m[32m    if padding < minpadding:[m
+[32m+[m[32m        padding = minpadding[m
+[32m+[m
+[32m+[m	[32mpadding = padding - (change/2)[m
+[32m+[m[32m    if padding < 0:[m
+[32m+[m[32m        padding = 0[m
+[32m+[m[32m    if padding + slopewidth > slopesize:[m
+[32m+[m[32m        padding = slopesize - slopewidth[m
+[32m+[m
+[32m+[m[32m    record = print_slopeline_perfect(padding,tree,skier,slopewidth, 1)[m
+[32m+[m
+[32m+[m[32m    result = inf_shift.shift(model.run(record))[m
+[32m+[m
+[32m+[m[32m  # - Then set it free to run on it's own[m
+[32m+[m[32m  model.disableLearning()[m
+[32m+[m[32m  print[m
+[32m+[m[32m  print "=================================== Begin Game ==================================="[m
+[32m+[m[32m  print[m
+[32m+[m[32m  yards = 0[m
+[32m+[m[32m  padding = 14[m
+[32m+[m[32m  skierposition = (padding + (slopewidth/2))[m
+[32m+[m[32m  while True:[m
+[32m+[m[32m    yards = yards + 1[m
+[32m+[m[32m    if (variablewidth):[m
+[32m+[m[32m        change = generate_random(choicelist_width)[m
+[32m+[m[32m        slopewidth = slopewidth + change[m
+[32m+[m[32m        if slopewidth > slopewidthmax:[m
+[32m+[m[32m            slopewidth = slopewidthmax[m
+[32m+[m[32m        if slopewidth < slopewidthmin:[m
+[32m+[m[32m            slopewidth = slopewidthmin[m
+[32m+[m
+[32m+[m[32m    drift = generate_random(choicelist_drift)[m
+[32m+[m[32m    padding = padding + drift[m
+[32m+[m[32m    if padding > maxpadding:[m
+[32m+[m[32m        padding = maxpadding[m
+[32m+[m[32m    if padding < minpadding:[m
+[32m+[m[32m        padding = minpadding[m
+[32m+[m
+[32m+[m	[32mpadding = padding - (change/2)[m
+[32m+[m[32m    if padding < 0:[m
+[32m+[m[32m        padding = 0[m
+[32m+[m[32m    if padding + slopewidth > slopesize:[m
+[32m+[m[32m        padding = slopesize - slopewidth[m
+[32m+[m
+[32m+[m[32m    record = print_slopeline(padding,tree,skier,slopewidth,skierposition, 1)[m
+[32m+[m[32m    if ((skierposition - padding) < 1) or ((skierposition - padding) > slopewidth):[m
+[32m+[m[32m        break[m
+[32m+[m
+[32m+[m[32m    result = inf_shift.shift(model.run(record))[m
+[32m+[m[32m    inferred = result.inferences['multiStepPredictions'][1][m
+[32m+[m[32m    predicted = sorted(inferred.items(), key=lambda x: x[1])[-1][0][m
+[32m+[m[32m    skierposition = calc_skier_position(skierposition, predicted)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mif __name__ == "__main__":[m
+[32m+[m[32m  runGame()[m
+[32m+[m[32m  print_stats()[m
+[32m+[m[32m  #for n in xrange(1):[m
+[32m+[m[32m      #_NUM_RECORDS = (n+1)*2000+1000[m
+[32m+[m[32m      #runGame()[m
+[32m+[m[32m      #print_stats()[m
+[32m+[m[41m      [m
+[32m+[m

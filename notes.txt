@@ -12,4 +12,42 @@ mailing list status update
 
 mid-term reports
 
+-outline
+background, motivation, long term goals
+concrete goals
+startup process, delays? reasons?
+basic organization
+outline questions
+
+brief description of results
+future work
+
+relevance
+
+collaborations
+
+continued work
+
+extra information 
+
+-goals
+
+-install and learn to use ubuntu
+-install and learn to use nupic
+-install and learn to use github
+-get Matt Keiths ski game to run.
+-Have Matt Keiths game completely controlled by NuPIC and running indefinitely. 
+-Have Matt Keiths ski game completely controlled by NuPIC with learning on and have it run progressively better over time.
+-Find a 2 player game that runs in python in order to integrate NuPIC easily into the game.
+-
+
+
+
+-questions
+
+-https://github.com/FernandoMMartinez/ski_game
+-no current documentation
+-we are on course to complete our goals
+-project should be complete
+-I had some trouble setting up everything and learning how to use nupic.
 

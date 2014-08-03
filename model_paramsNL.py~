@@ -107,7 +107,7 @@ MODEL_PARAMS = {
             # there are more, the weaker ones are suppressed)
             'numActivePerInhArea': 40, #40
 
-            'seed': 1956, #1956
+            #'seed': 1956, #1956
 
             # coincInputPoolPct
             # What percent of the columns's receptive field is available
@@ -153,7 +153,7 @@ MODEL_PARAMS = {
 
             'inputWidth': 2048,
 
-            'seed': 1960,
+            #'seed': 1960,
 
             # Temporal Pooler implementation selector (see _getTPClass in
             # CLARegion.py).
@@ -163,7 +163,7 @@ MODEL_PARAMS = {
             # NOTE: If None, use spNumActivePerInhArea
             #
             # TODO: need better explanation
-            'newSynapseCount': 100, #20
+            'newSynapseCount': 20, #20
 
             # Maximum number of synapses per segment
             #  > 0 for fixed-size CLA
@@ -172,7 +172,7 @@ MODEL_PARAMS = {
             # TODO: for Ron: once the appropriate value is placed in TP
             # constructor, see if we should eliminate this parameter from
             # description.py.
-            'maxSynapsesPerSegment': 257, #32
+            'maxSynapsesPerSegment': 32, #32
 
             # Maximum number of segments per cell
             #  > 0 for fixed-size CLA

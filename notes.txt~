@@ -1,6 +1,6 @@
-model_params.py has its own random seed setting?
-test run worsens with very large number of training patterns
-sometimes the ski layout randomly goes left or right in steps of 2 continuously which means it is impossible to win in that scenario even if you move left or right constantly.
+-model_params.py has its own random seed setting?
+-test run worsens with very large number of training patterns
+-sometimes the ski layout randomly goes left or right in steps of 2 continuously which means it is impossible to win in that scenario even if you move left or right constantly.
 
 
 mailing list status update
@@ -12,4 +12,29 @@ mailing list status update
 
 mid-term reports
 
+-outline
+goals
+
+
+
+-goals
+
+-install and learn to use ubuntu
+-install and learn to use nupic
+-install and learn to use github
+-get Matt Keiths ski game to run.
+-Have Matt Keiths game completely controlled by NuPIC and running indefinitely. 
+-Have Matt Keiths ski game completely controlled by NuPIC with learning on and have it run progressively better over time.
+-Find a 2 player game that runs in python in order to integrate NuPIC easily into the game.
+-
+
+
+
+-questions
+
+-https://github.com/FernandoMMartinez/ski_game
+-no current documentation
+-we are on course to complete our goals
+-project should be complete
+-I had some trouble setting up everything and learning how to use nupic.
 
